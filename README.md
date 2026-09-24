@@ -1,5 +1,7 @@
 # 📈 Exponentielle Glättung – Niveau, Trend und Wochenmuster lernen
 
+**[→ Demo live ausprobieren](https://sebastianhanisch-exponential-smoothing-demo.streamlit.app/)**
+
 Zweites Stück der **Zeitreihen-Prognose-Linie** der "Konzepte"-Reihe im Portfolio von [Sebastian Hanisch](https://sebastianhanisch.net) – Operations Research und Machine Learning. Nachfolger der [Naiven Prognose](https://github.com/sebastian-hanisch/naive-forecast-demo);
 geplant sind neun weitere Stücke (ARIMA, Dynamische Regression, Croston-Verfahren, Boosting, Prognoseintervalle, Hierarchische Abstimmung, Kombination, Prognose → Bestand, ein vortrainiertes Netz; noch nicht gebaut).
 
