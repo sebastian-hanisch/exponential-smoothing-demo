@@ -77,7 +77,7 @@ Die Preset-Zeilen sind **Einzelreihen** (Seed 3); belastbar sind die Zeilen übe
 
 ## Tests
 
-Pytest-Suite (`pytest tests/ -v`, rund 45 Sekunden, 93 Tests): der Kern von Hand (jeder Baustein Schritt für Schritt), Kreuzprobe gegen statsmodels für alle sechs Modelle, Schätzung (deterministisch, zulässig, kein Blick in die Zukunft), naive Verfahren gegen eine unabhängige Schleife, die Reihe (Fingerabdruck wie im Vorgänger),
+Pytest-Suite (`pytest tests/ -v`, rund eine Minute, 93 Tests): der Kern von Hand (jeder Baustein Schritt für Schritt), Kreuzprobe gegen statsmodels für alle sechs Modelle, Schätzung (deterministisch, zulässig, kein Blick in die Zukunft), naive Verfahren gegen eine unabhängige Schleife, die Reihe (Fingerabdruck wie im Vorgänger),
 Auswertung und Experimentzeilen, Preset- und Permalink-Klemmen (inkl. Modellwahl), AppTest-Rauchtests (Standard, jedes Preset, jedes Modell in der Ursprungsansicht, Ursprungs-Regler bei kürzerem Testbereich, Extremwerte, fünf Experimente auf Abruf) und `test_claims.py` (jede Zahl aus diesem README und aus den Preset-Hinweisen;
 Reihen und Schätzung sind deterministisch, die Bänder großzügiger als die Rundung).
 
