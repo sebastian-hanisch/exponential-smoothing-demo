@@ -3,7 +3,7 @@
 **[→ Demo live ausprobieren](https://sebastianhanisch-exponential-smoothing-demo.streamlit.app/)**
 
 Zweites Stück der **Zeitreihen-Prognose-Linie** der "Konzepte"-Reihe im Portfolio von [Sebastian Hanisch](https://sebastianhanisch.net) – Operations Research und Machine Learning. Nachfolger der [Naiven Prognose](https://github.com/sebastian-hanisch/naive-forecast-demo);
-geplant sind neun weitere Stücke (ARIMA, Dynamische Regression, Croston-Verfahren, Boosting, Prognoseintervalle, Hierarchische Abstimmung, Kombination, Prognose → Bestand, ein vortrainiertes Netz; noch nicht gebaut).
+die Linie hat neun weitere Stücke (ARIMA, Dynamische Regression, Croston-Verfahren, Boosting, Prognoseintervalle, Hierarchische Abstimmung, Kombination, Prognose → Bestand, ein vortrainiertes Netz), die inzwischen alle gebaut sind.
 
 Das Wochenmittel aus dem Vorgänger hat eine Stellschraube, die man von Hand drehen muss: über wie viele Wochen mitteln? Die **exponentielle Glättung** ersetzt sie durch ein Gedächtnis, das mit jedem Tag ein Stück vergisst: Aus jedem Prognosefehler lernt das Modell ein wenig
 (**Niveau**, **Trend**, **Wochenmuster**), und wie schnell es vergisst, **schätzt es aus den Daten**. Die Demo läuft auf **denselben Tagesaufträgen eines Depots** wie das Vorgänger-Stück (dieselbe Reihe, im Test auf denselben Fingerabdruck geprüft), im selben
@@ -69,12 +69,12 @@ Die Preset-Zeilen sind **Einzelreihen** (Seed 3); belastbar sind die Zeilen übe
 
 | Annahme | Was passiert, wenn sie verletzt ist | Wer setzt an |
 |---|---|---|
-| **Nur die Reihe selbst zählt** | Feiertage und Aktionen sind der Glättung unbekannt: an den Ereignistagen so schlecht wie das Wochenmittel, danach durch das verschmutzte Niveau sogar schlechter. | Dynamische Regression (geplant) |
-| **Ein Wochenmuster genügt** | Das Jahresmuster (365 Tage) ist als Saison nicht schätzbar; die Glättung sieht es als langsame Niveauänderung und läuft ihm hinterher. | ARIMA, Dynamische Regression (geplant) |
-| **Der Bedarf ist nie null** | Bei vielen Nullen gibt das Modell verschmierte oder negative Werte aus (hier auf 0 abgeschnitten); der Bedarf liegt bei 100 Aufträgen je Tag. | Croston, SBA, TSB (geplant) |
+| **Nur die Reihe selbst zählt** | Feiertage und Aktionen sind der Glättung unbekannt: an den Ereignistagen so schlecht wie das Wochenmittel, danach durch das verschmutzte Niveau sogar schlechter. | Dynamische Regression |
+| **Ein Wochenmuster genügt** | Das Jahresmuster (365 Tage) ist als Saison nicht schätzbar; die Glättung sieht es als langsame Niveauänderung und läuft ihm hinterher. | ARIMA, Dynamische Regression |
+| **Der Bedarf ist nie null** | Bei vielen Nullen gibt das Modell verschmierte oder negative Werte aus (hier auf 0 abgeschnitten); der Bedarf liegt bei 100 Aufträgen je Tag. | Croston, SBA, TSB |
 | **Die Parameter bleiben gültig** | Sie stammen aus zwei Jahren und ändern sich im Testjahr nicht – so ist es im Vehikel; ob das in einer echten Reihe stimmt, ist offen. Bei einem wandernden Wochenmuster ist ein größeres γ zu erwarten (nicht gemessen). | – |
-| **Eine Reihe genügt** | Jedes Depot bekommt seine eigenen Parameter; ähnliche Depots teilen ihr Wissen nicht. | Globale Modelle: Boosting, Vortrainiertes Netz (geplant) |
-| **Es gibt eine Punktprognose** | Das Modell nennt einen Wert; wie sicher er ist, sagt es (hier) nicht. | Prognoseintervalle (geplant) |
+| **Eine Reihe genügt** | Jedes Depot bekommt seine eigenen Parameter; ähnliche Depots teilen ihr Wissen nicht. | Globale Modelle: Boosting, Vortrainiertes Netz |
+| **Es gibt eine Punktprognose** | Das Modell nennt einen Wert; wie sicher er ist, sagt es (hier) nicht. | Prognoseintervalle |
 | **Erzeugte Reihe, zwölf Seeds** | Das Vehikel kennt genau die Muster, die es erzeugt; echte Reihen sind unordentlicher. Die Zahlen gelten für diese Reihen. | – |
 
 ## Tests
@@ -113,3 +113,7 @@ streamlit run app.py
 ```
 
 Gebaut mit Streamlit, Plotly und numpy (Kreuzprobe im Test: statsmodels).
+
+---
+
+Diese Demo ist Teil des Portfolios von [Sebastian Hanisch](https://sebastianhanisch.net) – Operations Research und Machine Learning ([Über mich](https://sebastianhanisch.net/ueber-mich.html)). Mehr zur Reihe: [Zeitreihen-Prognose: von Naiv bis Vortraining](https://sebastianhanisch.net/konzepte-zeitreihen-prognose.html).
