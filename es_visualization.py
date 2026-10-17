@@ -1,5 +1,6 @@
 """Plotly-Abbildungen der Exponentielle-Glättung-Demo. Achsen sind gesperrt (fixedrange)."""
 
+import math
 import numpy as np
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
@@ -15,6 +16,23 @@ ACTUAL = "#14233B"
 ORACLE = "#54a24b"
 WARN = "#f58518"
 CLASS_NAMES = ("Ereignistag", f"bis {C.EVENT_AFTER_DAYS} Tage danach", "sonst")
+
+
+def _ref_line(fig, value, text, position, axis, log=True, **line_kwargs):
+    """Referenzlinie mit Beschriftung auf einer logarithmischen Achse: die Linie liegt auf dem Datenwert, die Beschriftung braucht log10 des Werts
+    (add_hline und add_vline setzen beide auf denselben Wert, die Beschriftung sitzt dann falsch und dehnt die Achse); log=False für lineare Achsen."""
+    if log and not value > 0.0:
+        return
+    pos = math.log10(value) if log else value
+    top, left = "top" in position, "left" in position
+    if axis == "y":
+        fig.add_hline(y=value, **line_kwargs)
+        if text:
+            fig.add_annotation(xref="paper", yref="y", x=0 if left else 1, y=pos, text=text, showarrow=False, xanchor="left" if left else "right", yanchor="bottom" if top else "top")
+    else:
+        fig.add_vline(x=value, **line_kwargs)
+        if text:
+            fig.add_annotation(xref="x", yref="paper", x=pos, y=1 if top else 0, text=text, showarrow=False, xanchor="right" if left else "left", yanchor="top" if top else "bottom")
 
 
 def lock_axes(fig):
@@ -159,7 +177,7 @@ def build_alpha(res):
     rows = res["rows"]
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=[r["alpha"] for r in rows], y=[r["mase"] for r in rows], error_y=dict(type="data", array=[r["mase_se"] for r in rows]), mode="lines+markers", name="von Hand gesetztes α", line=dict(color=COLORS["hw_mult"], width=2)))
-    fig.add_vline(x=res["fit_alpha"], line=dict(color=ORACLE, dash="dot"), annotation_text=f"geschätzt: α = {res['fit_alpha']:.2f}".replace(".", ","), annotation_position="top right")
+    _ref_line(fig, res["fit_alpha"], f"geschätzt: α = {res['fit_alpha']:.2f}".replace(".", ","), "top right", "x", line=dict(color=ORACLE, dash="dot"))
     fig.update_xaxes(title_text="Glättungsparameter α des Niveaus (β und γ wie geschätzt, ggf. gekappt)", type="log", tickvals=[r["alpha"] for r in rows], ticktext=[f"{r['alpha']:.2f}".replace(".", ",") for r in rows])
     fig.update_yaxes(title_text="MASE (kleiner ist besser)", rangemode="tozero")
     return _base(fig, 340).update_layout(showlegend=False)
